@@ -1,7 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('posts/', include('posts.urls')),
+    path('users/', views.user_list_create, name='user_list_create'),
+    path('posts/', views.post_list_create, name='post_list_create'),
+    path('comments/', views.comment_list_create, name='comment_list_create'),
 ]
