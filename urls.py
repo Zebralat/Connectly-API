@@ -1,8 +1,14 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
-    path('users/', views.user_list_create, name='user_list_create'),
-    path('posts/', views.post_list_create, name='post_list_create'),
-    path('comments/', views.comment_list_create, name='comment_list_create'),
+    path('admin/', admin.site.urls),
+    path('posts/', include('posts.urls')),
+    # JWT Login Endpoints
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
