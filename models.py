@@ -10,8 +10,9 @@ class User(models.Model):
 
 class Post(models.Model):
     content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='posts')  
     created_at = models.DateTimeField(auto_now_add=True)
+    liked_by = models.ManyToManyField('auth.User', related_name='liked_posts', blank=True)
 
     def __str__(self):
         return f"Post by {self.author.username}"
