@@ -46,5 +46,3 @@ This API supports a social media platform called **Connectly** with full CRUD op
 **Yzabelle Grace Cane**  
 Mapua-Malayan Digital College  
 MO-IT152 - Integrative Programming and Technologies
-
-Go ahead and update the README now. Let me know when it's done!
