@@ -47,15 +47,4 @@ This API supports a social media platform called **Connectly** with full CRUD op
 Mapua-Malayan Digital College  
 MO-IT152 - Integrative Programming and Technologies
 
----
-
-### What to do now:
-
-1. Replace your current README.md with the content above.
-2. Click **"Commit changes"** at the bottom.
-
-After that, reply with **“readme updated”**.
-
-Once you do that, we can move on to reviewing your diagrams (when you send them) and finalizing your presentation script.
-
 Go ahead and update the README now. Let me know when it's done!
