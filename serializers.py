@@ -1,26 +1,51 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import User as CustomUser, Post, Comment  # if you have custom User, use that
+from .models import User, Post, Comment
+
 
 class UserSerializer(serializers.ModelSerializer):
+    """Serializer for User model - includes role for RBAC"""
+    
     class Meta:
-        model = CustomUser  # or User
-        fields = ['id', 'username', 'email', 'created_at']
+        model = User
+        fields = ['id', 'username', 'email', 'role', 'date_joined']
+        read_only_fields = ['id', 'date_joined']
+
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField(read_only=True)            
-    like_count = serializers.ReadOnlyField(source='liked_by.count')
-    comment_count = serializers.ReadOnlyField(source='comments.count')
+    """Serializer for Post model with privacy field"""
+    
+    author_username = serializers.ReadOnlyField(source='author.username')
+    like_count = serializers.IntegerField(source='liked_by.count', read_only=True)
+    comment_count = serializers.IntegerField(source='comments.count', read_only=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'content', 'author', 'created_at', 'like_count', 'comment_count']
+        fields = [
+            'id', 
+            'content', 
+            'author', 
+            'author_username',
+            'privacy',          
+            'like_count',
+            'comment_count',
+            'created_at'
+        ]
+        read_only_fields = ['author', 'created_at']
+
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField(read_only=True)
-    content = serializers.CharField(required=True, allow_blank=False, trim_whitespace=True)
+    """Serializer for Comment model"""
+    
+    author_username = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
         model = Comment
-        fields = ['id', 'post', 'author', 'content', 'created_at']
-        read_only_fields = ['author', 'created_at', 'post']
+        fields = [
+            'id', 
+            'post', 
+            'author', 
+            'author_username',
+            'content', 
+            'created_at'
+        ]
+        read_only_fields = ['author', 'created_at']
